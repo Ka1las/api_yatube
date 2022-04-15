@@ -1,13 +1,13 @@
 # Установка:
 
 Клонировать репозиторий и перейти в него в командной строке:
-```python
+```python3
 git clone git@github.com:Ka1las/api_final_yatube.git
 cd api_final_yatube
 ```
 
 Cоздать и активировать виртуальное окружение:
-```python
+```python3
 python3 -m venv env
 
 source env/bin/activate
