@@ -40,6 +40,9 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
+    def __str__(self):
+        return self.text
+
 
 class Follow(models.Model):
     user = models.ForeignKey(
@@ -55,11 +58,12 @@ class Follow(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'following'],
-                name='unique_name'
+            models.CheckConstraint(
+                name='prevent_self_follow',
+                check=~models.Q(user=models.F("following")),
             ),
         ]
 
     def __str__(self):
         return f'{self.user} подписан на {self.following}'
+
