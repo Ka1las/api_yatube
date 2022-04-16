@@ -11,7 +11,7 @@ from .serializers import (
     GroupSerializer,
     PostSerializer
 )
-from posts.models import Group, Post, User
+from posts.models import Group, Post
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -59,7 +59,7 @@ class FollowViewSet(CreateModelMixin, ListModelMixin, viewsets.GenericViewSet):
     search_fields = ('user__username', 'following__username',)
 
     def get_queryset(self):
-        user = get_object_or_404(User, id=self.request.user.pk)
+        user = self.request.user
         return user.follower.all()
 
     def perform_create(self, serializer):
